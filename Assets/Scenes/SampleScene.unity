@@ -153,7 +153,11 @@ MonoBehaviour:
   scale: 50
   asteroidSpawnThreshold: 0.6
   minSpacing: 0
-  asteroidPrefab: {fileID: 1975577401357084065, guid: 4aaf5be94ba802c4dac24ca77bb3ace4, type: 3}
+  asteroidPrefabs:
+  - {fileID: 1975577401357084065, guid: 4aaf5be94ba802c4dac24ca77bb3ace4, type: 3}
+  - {fileID: 7220072426465811475, guid: 9f73dcbf2dc1e4c44b4bf2bee36892d6, type: 3}
+  - {fileID: 377350771431413233, guid: 0a9e4f438b3fa454fad820dba43a5ba0, type: 3}
+  - {fileID: 8989431482147495293, guid: 127195cb088da6d4b87066882fd382c5, type: 3}
   asteroidSizeDestribution:
     serializedVersion: 2
     m_Curve:
@@ -441,7 +445,7 @@ Transform:
   m_GameObject: {fileID: 871878215}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 108.91643, y: -18.072107, z: -12.815901}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

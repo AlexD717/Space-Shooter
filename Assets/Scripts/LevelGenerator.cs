@@ -11,7 +11,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private float minSpacing;
 
     [Header("Asteroid Config")]
-    [SerializeField] private GameObject asteroidPrefab;
+    [SerializeField] private GameObject[] asteroidPrefabs;
     [SerializeField] private AnimationCurve asteroidSizeDestribution;
     [SerializeField] private Vector2 asteroidSizeRange;
 
@@ -60,7 +60,7 @@ public class LevelGenerator : MonoBehaviour
         }
 
         // Spawn Asteroid
-        GameObject asteroid = Instantiate(asteroidPrefab, spawnPosition, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))));
+        GameObject asteroid = Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Length)], spawnPosition, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))));
         asteroid.transform.localScale = Vector2.one * asteroidRadius;
         asteroid.transform.parent = asteroidParent;
 
