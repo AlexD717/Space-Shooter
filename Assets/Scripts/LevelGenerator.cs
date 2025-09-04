@@ -9,6 +9,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private float scale;
     [SerializeField] private float asteroidSpawnThreshold;
     [SerializeField] private float minSpacing;
+    [SerializeField] private float noSpawnStarterArea;
 
     [Header("Asteroid Config")]
     [SerializeField] private GameObject[] asteroidPrefabs;
@@ -19,15 +20,19 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Transform asteroidParent;
 
     private Vector2 noiseOffset;
-    private Dictionary<GameObject, float> placedAsteroids = new Dictionary<GameObject, float>();
+    private Dictionary<GameObject, float> placedObjects = new Dictionary<GameObject, float>();
 
     private void Start()
     {
         // Generate perlin noise for level generation
         float startGenTime = Time.realtimeSinceStartup;
-
         noiseOffset = new Vector2(Random.Range(0f, 9999f), Random.Range(0f, 9999f));
 
+        // Avoid placing asteroids right on the player
+        GameObject player = FindFirstObjectByType<Player>().gameObject;
+        placedObjects.Add(player, noSpawnStarterArea / 2f);
+
+        // Spawn all asteroids
         for (int i = 0; i < generationSteps; ++i)
         {
 
@@ -51,7 +56,7 @@ public class LevelGenerator : MonoBehaviour
         float asteroidRadius = Mathf.Lerp(asteroidSizeRange.x, asteroidSizeRange.y, asteroidSizeDestribution.Evaluate(Random.value));
 
         // Avoid Collision with Other Asteroid
-        foreach (KeyValuePair<GameObject, float> entry in placedAsteroids)
+        foreach (KeyValuePair<GameObject, float> entry in placedObjects)
         {
             GameObject spawnedAsteroidObj = entry.Key;
             float spawnedAsteroidRadius = entry.Value;
@@ -64,7 +69,7 @@ public class LevelGenerator : MonoBehaviour
         asteroid.transform.localScale = Vector2.one * asteroidRadius;
         asteroid.transform.parent = asteroidParent;
 
-        placedAsteroids.Add(asteroid, asteroidRadius);
+        placedObjects.Add(asteroid, asteroidRadius);
     }
 
     private float PerlinNoise(float x, float y)
