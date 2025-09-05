@@ -6,9 +6,11 @@ public class LevelGenerator : MonoBehaviour
     [Header("Map Generation")]
     [SerializeField] private float blockSize;
     private HashSet<Vector2Int> generatedBlocks = new HashSet<Vector2Int>();
+    private Dictionary<Vector2Int, int> generatingBlocks = new Dictionary<Vector2Int, int>();
     [SerializeField] private Vector2Int initialBlockRange;
     [SerializeField] private int viewDistance;
-    [SerializeField] private float generationSteps;
+    [SerializeField] private int generationSteps;
+    [SerializeField] private int framesToGenerateOver;
     [SerializeField] private float scale;
     [SerializeField] private float asteroidSpawnThreshold;
     [SerializeField] private float minSpacing;
@@ -41,7 +43,9 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int y = -initialBlockRange.y; y <= initialBlockRange.y; y++)
             {
-                GenerateBlock(new Vector2Int(x, y));
+                Vector2Int block = new Vector2Int(x, y);
+                GenerateBlock(block, generationSteps);
+                generatedBlocks.Add(block);
             }
         }
 
@@ -67,14 +71,37 @@ public class LevelGenerator : MonoBehaviour
                 Vector2Int blockToGenerate = playerBlock + new Vector2Int(x, y);
                 if (!generatedBlocks.Contains(blockToGenerate))
                 {
-                    Debug.Log("Generatign Block: " + blockToGenerate);
-                    GenerateBlock(blockToGenerate);
+                    GeneratePartialBlock(blockToGenerate);
                 }
             }
         }
     }
 
-    private void GenerateBlock(Vector2Int block)
+    private void GeneratePartialBlock(Vector2Int blockToGenerate)
+    {
+        int stepsToGenerateFor = Mathf.RoundToInt(generationSteps / framesToGenerateOver);
+        GenerateBlock(blockToGenerate, stepsToGenerateFor);
+
+        if (generatingBlocks.ContainsKey(blockToGenerate))
+        {
+            int totalStepsGeneratedFor = generatingBlocks[blockToGenerate] + stepsToGenerateFor;
+            if (totalStepsGeneratedFor >= generationSteps)
+            {
+                generatedBlocks.Add(blockToGenerate);
+                generatingBlocks.Remove(blockToGenerate);
+            }
+            else
+            {
+                generatingBlocks[blockToGenerate] = totalStepsGeneratedFor;
+            }
+        }
+        else
+        {
+            generatingBlocks.Add(blockToGenerate, stepsToGenerateFor);
+        }
+    }
+
+    private void GenerateBlock(Vector2Int block, int generationSteps)
     {
         Vector2 bottomLeft = new Vector2(block.x * blockSize, block.y * blockSize);
         Vector2 topRight = bottomLeft + Vector2.one * blockSize;
@@ -87,9 +114,6 @@ public class LevelGenerator : MonoBehaviour
 
             GenerateAsteroid(new Vector2(x, y));
         }
-
-        generatedBlocks.Add(block);
-
     }
 
     private void GenerateAsteroid(Vector2 spawnPosition)

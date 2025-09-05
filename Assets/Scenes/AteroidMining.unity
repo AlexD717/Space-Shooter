@@ -150,8 +150,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockSize: 100
   initialBlockRange: {x: 4, y: 4}
-  viewDistance: 1
-  generationSteps: 1000
+  viewDistance: 2
+  generationSteps: 500
+  framesToGenerateOver: 20
   scale: 50
   asteroidSpawnThreshold: 0.6
   minSpacing: 0.1
