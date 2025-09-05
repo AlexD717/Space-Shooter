@@ -4,7 +4,10 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour
 {
     [Header("Map Generation")]
-    [SerializeField] private Vector2 mapSize;
+    [SerializeField] private float blockSize;
+    private HashSet<Vector2Int> generatedBlocks = new HashSet<Vector2Int>();
+    [SerializeField] private Vector2Int initialBlockRange;
+    [SerializeField] private int viewDistance;
     [SerializeField] private float generationSteps;
     [SerializeField] private float scale;
     [SerializeField] private float asteroidSpawnThreshold;
@@ -21,6 +24,7 @@ public class LevelGenerator : MonoBehaviour
 
     private Vector2 noiseOffset;
     private Dictionary<GameObject, float> placedObjects = new Dictionary<GameObject, float>();
+    private GameObject player;
 
     private void Start()
     {
@@ -29,26 +33,68 @@ public class LevelGenerator : MonoBehaviour
         noiseOffset = new Vector2(Random.Range(0f, 9999f), Random.Range(0f, 9999f));
 
         // Avoid placing asteroids right on the player
-        GameObject player = FindFirstObjectByType<Player>().gameObject;
+        player = FindFirstObjectByType<Player>().gameObject;
         placedObjects.Add(player, noSpawnStarterArea / 2f);
 
         // Spawn all asteroids
-        for (int i = 0; i < generationSteps; ++i)
+        for (int x = -initialBlockRange.x; x <= initialBlockRange.x; x++)
         {
-
-            GenerateAsteroid();
+            for (int y = -initialBlockRange.y; y <= initialBlockRange.y; y++)
+            {
+                GenerateBlock(new Vector2Int(x, y));
+            }
         }
 
         float endGenTime = Time.realtimeSinceStartup;
         Debug.Log("Map Generation Finished; Took " + (endGenTime - startGenTime).ToString());
     }
 
-    private void GenerateAsteroid()
+    private void Update()
     {
-        float x = Random.Range(-mapSize.x / 2f, mapSize.x / 2f);
-        float y = Random.Range(-mapSize.y / 2f, mapSize.y / 2f);
-        float perlinNoise = PerlinNoise(x, y);
-        Vector2 spawnPosition = new Vector2(x, y);
+        if (player == null)
+            return;
+
+        Vector2Int playerBlock = new Vector2Int(
+            Mathf.FloorToInt(player.transform.position.x / blockSize),
+            Mathf.FloorToInt(player.transform.position.y / blockSize)
+        );
+
+        // Identify if player is near the edge
+        for (int x = -viewDistance; x <= viewDistance; x++)
+        {
+            for (int y = -viewDistance; y <= viewDistance; y++)
+            {
+                Vector2Int blockToGenerate = playerBlock + new Vector2Int(x, y);
+                if (!generatedBlocks.Contains(blockToGenerate))
+                {
+                    Debug.Log("Generatign Block: " + blockToGenerate);
+                    GenerateBlock(blockToGenerate);
+                }
+            }
+        }
+    }
+
+    private void GenerateBlock(Vector2Int block)
+    {
+        Vector2 bottomLeft = new Vector2(block.x * blockSize, block.y * blockSize);
+        Vector2 topRight = bottomLeft + Vector2.one * blockSize;
+
+        // Spawn all asteroids
+        for (int i = 0; i < generationSteps; i++)
+        {
+            float x = Random.Range(bottomLeft.x, topRight.x);
+            float y = Random.Range(bottomLeft.y, topRight.y);
+
+            GenerateAsteroid(new Vector2(x, y));
+        }
+
+        generatedBlocks.Add(block);
+
+    }
+
+    private void GenerateAsteroid(Vector2 spawnPosition)
+    {
+        float perlinNoise = PerlinNoise(spawnPosition);
         
         if (perlinNoise < asteroidSpawnThreshold)
             return;
@@ -72,9 +118,8 @@ public class LevelGenerator : MonoBehaviour
         placedObjects.Add(asteroid, asteroidRadius);
     }
 
-    private float PerlinNoise(float x, float y)
+    private float PerlinNoise(Vector2 cords)
     {
-        float noise = Mathf.PerlinNoise((x + noiseOffset.x) / scale, (y + noiseOffset.y) / scale);
-        return noise;
+        return Mathf.PerlinNoise((cords.x + noiseOffset.x) / scale, (cords.y + noiseOffset.y) / scale);
     }
 }

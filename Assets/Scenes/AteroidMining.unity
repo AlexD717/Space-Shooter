@@ -148,8 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8237ed03162c7499b34ffa0b4c4e9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSize: {x: 800, y: 800}
-  generationSteps: 20000
+  blockSize: 100
+  initialBlockRange: {x: 4, y: 4}
+  viewDistance: 1
+  generationSteps: 1000
   scale: 50
   asteroidSpawnThreshold: 0.6
   minSpacing: 0.1
