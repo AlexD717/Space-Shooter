@@ -624,6 +624,8 @@ GameObject:
   - component: {fileID: 963945238}
   - component: {fileID: 963945236}
   - component: {fileID: 963945237}
+  - component: {fileID: 963945239}
+  - component: {fileID: 963945240}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -690,8 +692,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 10
-  m_LinearDamping: 0.8
-  m_AngularDamping: 1
+  m_LinearDamping: 1
+  m_AngularDamping: 1.6
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -704,6 +706,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &963945239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963945234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8491addb8b296f9498e2c9cf9b0725be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  weapon: {fileID: 963945240}
+--- !u!114 &963945240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963945234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79406a40976dcdc4883ef74e00f5b5d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  cooldown: 0
+  range: 0
+  speed: 0
+  bulletPrefab: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
