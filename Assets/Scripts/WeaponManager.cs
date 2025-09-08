@@ -14,17 +14,18 @@ public class WeaponManager : MonoBehaviour
         InputActionMap playerControls = inputActions.FindActionMap("Player");
         fire = playerControls.FindAction("Fire");
         fire.Enable();
-        fire.performed += OnFire;
     }
 
     private void OnDisable()
     {
-        fire.performed -= OnFire;
         fire.Disable();
     }
 
-    private void OnFire(InputAction.CallbackContext context)
+    private void Update()
     {
-        weapon.Fire();
+        if (fire.IsPressed())
+        {
+            weapon.Fire();
+        }
     }
 }
