@@ -3,6 +3,9 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [HideInInspector] public float range;
+    [HideInInspector] public float damage;
+
+    [SerializeField] protected GameObject destroyEffect;
 
     private Vector2 startPos;
 
@@ -21,6 +24,9 @@ public class Projectile : MonoBehaviour
 
     private void OnDestroy()
     {
-        // TODO play effect
+        if (destroyEffect != null)
+        {
+            Instantiate(destroyEffect, transform.position, Quaternion.identity);
+        }
     }
 }

@@ -20,6 +20,7 @@ public class Cannon : Weapon
             GameObject bullet = Instantiate(bulletPrefab, t.position, t.rotation);
             CannonProjectile projectile = bullet.GetComponent<CannonProjectile>();
             projectile.range = range;
+            projectile.damage = damage;
 
             Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
             Vector2 fireDir = t.up;

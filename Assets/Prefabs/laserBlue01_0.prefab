@@ -176,3 +176,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 0
+  damage: 0
+  destroyEffect: {fileID: 3684101457168053074, guid: 35e0283d50f62ce478ea55fdf41d6aaa, type: 3}
