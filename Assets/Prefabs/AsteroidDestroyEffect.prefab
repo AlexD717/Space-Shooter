@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3684101457168053074
+--- !u!1 &738939916482865291
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9142892078792085385}
-  - component: {fileID: 2865219320765968579}
-  - component: {fileID: 5171314575980540547}
-  - component: {fileID: 7260017629304577425}
+  - component: {fileID: 1100492066649511950}
+  - component: {fileID: 3849044532135243405}
+  - component: {fileID: 8984178713061217923}
+  - component: {fileID: 1712647249372098346}
   m_Layer: 0
-  m_Name: BlueLaserDestroyEffect
+  m_Name: AsteroidDestroyEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9142892078792085385
+--- !u!4 &1100492066649511950
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3684101457168053074}
+  m_GameObject: {fileID: 738939916482865291}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -34,13 +34,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &2865219320765968579
+--- !u!198 &3849044532135243405
 ParticleSystem:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3684101457168053074}
+  m_GameObject: {fileID: 738939916482865291}
   serializedVersion: 8
   lengthInSec: 5
   simulationSpeed: 1
@@ -117,7 +117,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.4
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -223,8 +223,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0, g: 1, b: 0.94630265, a: 1}
-      maxColor: {r: 0, g: 0.4798191, b: 0.9490196, a: 1}
+      minColor: {r: 0.21383637, g: 0.21383637, b: 0.21383637, a: 1}
+      maxColor: {r: 0.63522005, g: 0.63522005, b: 0.63522005, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -288,8 +288,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2
-      minScalar: 0.1
+      scalar: 1
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -752,7 +752,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 5
       mode: 0
       spread: 0
       speed:
@@ -981,7 +981,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 50
+        scalar: 100
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -4815,14 +4815,14 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!199 &5171314575980540547
+--- !u!199 &8984178713061217923
 ParticleSystemRenderer:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3684101457168053074}
+  m_GameObject: {fileID: 738939916482865291}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -4892,16 +4892,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &7260017629304577425
+--- !u!114 &1712647249372098346
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3684101457168053074}
+  m_GameObject: {fileID: 738939916482865291}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e370daee83326b4b86ee0c2ef9dc6e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyDelay: 1
+  destroyDelay: 1.5
