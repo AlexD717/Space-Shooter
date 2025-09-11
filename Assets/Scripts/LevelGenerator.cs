@@ -13,11 +13,14 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private int framesToGenerateOver;
     [SerializeField] private float scale;
     [SerializeField] private float asteroidSpawnThreshold;
+    [SerializeField] private float specialAsteroidSpawnTopThreshold;
+    [SerializeField] private float chanceOfSpecialAsteroid;
     [SerializeField] private float minSpacing;
     [SerializeField] private float noSpawnStarterArea;
 
     [Header("Asteroid Config")]
     [SerializeField] private GameObject[] asteroidPrefabs;
+    [SerializeField] private GameObject[] specialAseroidPreabs;
     [SerializeField] private AnimationCurve asteroidSizeDestribution;
     [SerializeField] private Vector2 asteroidSizeRange;
 
@@ -135,7 +138,16 @@ public class LevelGenerator : MonoBehaviour
         }
 
         // Spawn Asteroid
-        GameObject asteroid = Instantiate(asteroidPrefabs[Random.Range(0, asteroidPrefabs.Length)], spawnPosition, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))));
+        GameObject asteroidSpawning = asteroidPrefabs[Random.Range(0, asteroidPrefabs.Length)];
+        if (perlinNoise < specialAsteroidSpawnTopThreshold)
+        {
+            if (Random.value <= chanceOfSpecialAsteroid)
+            {
+                asteroidSpawning = specialAseroidPreabs[Random.Range(0, specialAseroidPreabs.Length)];
+            }
+        }
+
+        GameObject asteroid = Instantiate(asteroidSpawning, spawnPosition, Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360))));
         asteroid.transform.localScale = Vector2.one * asteroidRadius;
         asteroid.transform.parent = asteroidParent;
 
