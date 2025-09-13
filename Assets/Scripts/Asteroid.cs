@@ -4,13 +4,16 @@ public class Asteroid : MonoBehaviour {
 
     private float health;
     private const float healthConst = 4;
-    private const float particleMult = 100;
+    private const float particleMult = 25;
+    private float parentScale;
 
     [SerializeField] private GameObject destroyEffect;
+    [SerializeField] private GameObject dropsItem;
 
     private void Start()
     {
-        health = transform.parent.localScale.x * healthConst;
+        parentScale = transform.parent.localScale.x;
+        health = parentScale * healthConst;
     }
 
     public void TakeDamage(float damage)
@@ -29,10 +32,16 @@ public class Asteroid : MonoBehaviour {
             GameObject effect = Instantiate(destroyEffect, transform.position, Quaternion.identity);
             ParticleSystem particleSystem = effect.GetComponent<ParticleSystem>();
             ParticleSystem.Burst burst = particleSystem.emission.GetBurst(0);
-            burst.count = new ParticleSystem.MinMaxCurve(Mathf.Round(particleMult * transform.localScale.x));
+            burst.count = new ParticleSystem.MinMaxCurve(Mathf.Round(particleMult * parentScale));
             particleSystem.emission.SetBurst(0, burst);
             ParticleSystem.ShapeModule shape = particleSystem.shape;
-            shape.radius *= transform.localScale.x;
+            shape.radius = parentScale;
+        }
+
+        if (dropsItem != null)
+        {
+            Vector2 spawnPoint = Random.insideUnitCircle * parentScale;
+            GameObject item = Instantiate(dropsItem, spawnPoint, Quaternion.Euler(0, 0, Random.Range(0, 360)));
         }
     }
 }
