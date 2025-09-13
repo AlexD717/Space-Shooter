@@ -128,13 +128,27 @@ public class LevelGenerator : MonoBehaviour
 
         float asteroidRadius = Mathf.Lerp(asteroidSizeRange.x, asteroidSizeRange.y, asteroidSizeDestribution.Evaluate(Random.value));
 
+        List<GameObject> asteroidsToRemove = new List<GameObject>();
+
         // Avoid Collision with Other Asteroid
         foreach (KeyValuePair<GameObject, float> entry in placedObjects)
         {
             GameObject spawnedAsteroidObj = entry.Key;
+            if (spawnedAsteroidObj == null)
+            {
+                asteroidsToRemove.Add(spawnedAsteroidObj);
+                continue;
+            }
+
             float spawnedAsteroidRadius = entry.Value;
             if (Vector2.Distance(spawnPosition, spawnedAsteroidObj.transform.position) < minSpacing + spawnedAsteroidRadius + asteroidRadius)
                 return;
+        }
+
+        // Remove nonexistent asteroids
+        foreach (GameObject obj in asteroidsToRemove)
+        {
+            placedObjects.Remove(obj);
         }
 
         // Spawn Asteroid
