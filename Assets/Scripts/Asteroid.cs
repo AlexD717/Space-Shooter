@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour {
 
-    private float health;
     private const float healthConst = 4;
     private const float particleMult = 25;
+    private const float itemSpawnMult = 0.5f;
+
     private float parentScale;
+    private float health;
 
     [SerializeField] private GameObject destroyEffect;
     [SerializeField] private GameObject dropsItem;
@@ -40,8 +42,14 @@ public class Asteroid : MonoBehaviour {
 
         if (dropsItem != null)
         {
-            Vector2 spawnPoint = Random.insideUnitCircle * parentScale;
-            GameObject item = Instantiate(dropsItem, spawnPoint, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+            int itemsToSpawn = Mathf.RoundToInt(parentScale * itemSpawnMult);
+            for (int i = 0; i < itemsToSpawn; i++)
+            {
+                Vector2 spawnPoint = (Random.insideUnitCircle * parentScale) + (Vector2)transform.position;
+                GameObject item = Instantiate(dropsItem, spawnPoint, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+
+            }
+
         }
     }
 }

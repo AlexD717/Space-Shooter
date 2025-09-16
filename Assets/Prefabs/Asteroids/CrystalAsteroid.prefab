@@ -263,3 +263,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyEffect: {fileID: 738939916482865291, guid: bec43f6c2fab3ce41bffe5b23c636bda, type: 3}
+  dropsItem: {fileID: 756377138078731444, guid: 93b7010e81a578549a3c70a8cb1fc838, type: 3}
