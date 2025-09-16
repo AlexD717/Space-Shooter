@@ -23,11 +23,11 @@ public class Asteroid : MonoBehaviour {
         health -= damage;
         if (health <= 0)
         {
-            Destroy(transform.parent.gameObject);
+            Destroyed();
         }
     }
 
-    private void OnDestroy()
+    private void Destroyed()
     {
         if (destroyEffect != null)
         {
@@ -51,5 +51,7 @@ public class Asteroid : MonoBehaviour {
             }
 
         }
+
+        Destroy(transform.parent.gameObject );
     }
 }
