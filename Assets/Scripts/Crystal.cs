@@ -24,7 +24,7 @@ public class Crystal : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
             if (Vector2.Distance(transform.position, player.position) < 0.2)
             {
-                Destroy(gameObject);
+                PickedUpByPlayer();
             }
         }
         else
@@ -34,6 +34,12 @@ public class Crystal : MonoBehaviour
                 detectedByPlayer = true;
             }
         }
+    }
+
+    private void PickedUpByPlayer()
+    {
+        FindFirstObjectByType<CrystalManager>().CrystalCollected();
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmos()
