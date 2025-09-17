@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -27,12 +28,18 @@ public class LevelGenerator : MonoBehaviour
     [Header("Initial Settings")]
     [SerializeField] private Transform asteroidParent;
 
+    [Header("Loading Screen")]
+    [SerializeField] private GameObject loadingPanel;
+
     private Vector2 noiseOffset;
     private Dictionary<GameObject, float> placedObjects = new Dictionary<GameObject, float>();
     private GameObject player;
 
     private void Start()
     {
+        // Set up generation loading screen
+        loadingPanel.SetActive(true);
+
         // Generate perlin noise for level generation
         float startGenTime = Time.realtimeSinceStartup;
         noiseOffset = new Vector2(Random.Range(0f, 9999f), Random.Range(0f, 9999f));
@@ -51,6 +58,7 @@ public class LevelGenerator : MonoBehaviour
                 generatedBlocks.Add(block);
             }
         }
+        loadingPanel.SetActive(false);
 
         float endGenTime = Time.realtimeSinceStartup;
         Debug.Log("Map Generation Finished; Took " + (endGenTime - startGenTime).ToString());
