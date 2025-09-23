@@ -221,3 +221,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyEffect: {fileID: 738939916482865291, guid: 2eeeb5f4205f80c4ba0bff618ba3a030, type: 3}
+  dropsItem: {fileID: 0}
+  sfxVolumeRange: {x: 0.2, y: 0.4}

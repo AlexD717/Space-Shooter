@@ -12,6 +12,8 @@ public class Asteroid : MonoBehaviour {
     [SerializeField] private GameObject destroyEffect;
     [SerializeField] private GameObject dropsItem;
 
+    [SerializeField] private Vector2 sfxVolumeRange;
+
     private void Start()
     {
         parentScale = transform.parent.localScale.x;
@@ -38,6 +40,11 @@ public class Asteroid : MonoBehaviour {
             particleSystem.emission.SetBurst(0, burst);
             ParticleSystem.ShapeModule shape = particleSystem.shape;
             shape.radius = parentScale;
+
+            // SFX modify
+            AudioSource audioSource = effect.GetComponent<AudioSource>();
+            LevelGenerator levelGenerator = FindFirstObjectByType<LevelGenerator>();
+            audioSource.volume = Mathf.Lerp(sfxVolumeRange.x, sfxVolumeRange.y, parentScale / levelGenerator.MaxAsteroidSize());
         }
 
         if (dropsItem != null)

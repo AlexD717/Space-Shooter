@@ -829,7 +829,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25.099976, y: -50.799927}
+  m_AnchoredPosition: {x: 25.100098, y: -50.799927}
   m_SizeDelta: {x: 30.8664, y: 73.5566}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &850660020
@@ -949,7 +949,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   cooldown: 0.2
-  range: 120
+  range: 90
   speed: 100
   bulletPrefab: {fileID: 1365886654896660070, guid: 038d2a9e572540a48b1648a031b59220, type: 3}
 --- !u!1 &963945234

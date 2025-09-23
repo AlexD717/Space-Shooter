@@ -180,4 +180,9 @@ public class LevelGenerator : MonoBehaviour
     {
         return Mathf.PerlinNoise((cords.x + noiseOffset.x) / scale, (cords.y + noiseOffset.y) / scale);
     }
+
+    public float MaxAsteroidSize()
+    {
+        return asteroidSizeRange.y;
+    }
 }
