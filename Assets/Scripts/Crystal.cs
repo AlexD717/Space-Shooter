@@ -4,6 +4,7 @@ public class Crystal : MonoBehaviour
 {
     [SerializeField] private float magnetDistance;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private GameObject collectSFX;
 
     private Transform player;
     private bool detectedByPlayer = false;
@@ -39,6 +40,10 @@ public class Crystal : MonoBehaviour
     private void PickedUpByPlayer()
     {
         FindFirstObjectByType<CrystalManager>().CrystalCollected();
+        if (collectSFX != null) 
+        {
+            Instantiate(collectSFX, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject);
     }
 

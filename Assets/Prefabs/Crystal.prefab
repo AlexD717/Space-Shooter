@@ -102,3 +102,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   magnetDistance: 40
   moveSpeed: 100
+  collectSFX: {fileID: 4843321278839676891, guid: b0a904758905070488b1bfa9f38974b1, type: 3}
